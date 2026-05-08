@@ -16,7 +16,7 @@ const slugify = (value = "") => String(value || "")
 const games = JSON.parse(await readFile(path.join(root, "data", "games.json"), "utf8"));
 const categorySlugs = [...new Set(games.flatMap((game) => Array.isArray(game.cat) ? game.cat : []).map(slugify).filter(Boolean))];
 
-const routes = [
+const htmlRoutes = [
   ["/", "index.html"],
   ["/games", "games/index.html"],
   ["/categories", "categories/index.html"],
@@ -24,6 +24,19 @@ const routes = [
   ...categorySlugs.map((slug) => [`/category/${slug}`, `category/${slug}/index.html`]),
   ...games.map((game) => [`/play/${game.slug}`, `play/${game.slug}/index.html`])
 ];
+
+const staticRoutes = [
+  ["/robots.txt", "robots.txt"],
+  ["/rss.xml", "rss.xml"],
+  ["/sitemap.xml", "sitemap.xml"],
+  ["/sitemap-news.xml", "sitemap-news.xml"],
+  ["/sitemap/static.xml", "sitemap/static.xml"],
+  ["/sitemap/games.xml", "sitemap/games.xml"],
+  ["/sitemap/guides.xml", "sitemap/guides.xml"],
+  ...categorySlugs.map((slug) => [`/sitemap/games/${slug}.xml`, `sitemap/games/${slug}.xml`])
+];
+
+const routes = [...htmlRoutes, ...staticRoutes];
 
 async function waitForServer(timeoutMs = 30000) {
   const startedAt = Date.now();
