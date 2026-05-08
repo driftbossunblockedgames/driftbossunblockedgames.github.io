@@ -1,0 +1,19 @@
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: Yandex
+Allow: /
+
+User-agent: FacebookBot
+User-agent: MetaBot
+User-agent: ClaudeBot
+User-agent: CCBot
+User-agent: Omgilibot
+Disallow: /
+
+User-agent: *
+Allow: /
+Allow: /search
+Allow: /search/*
+Disallow: /master-sitemap
+
+Sitemap: https://freeunblockedgamesgp.github.io/sitemap.xml
