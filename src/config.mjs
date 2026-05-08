@@ -34,8 +34,8 @@ export const config = {
   // analytics.adsenseId: Publisher ID AdSense.
   // analytics.adsenseEnabled: true untuk aktifkan script AdSense.
   analytics: {
-    histatsId: "5023430",
-    histatsIDGlobal: "4953180",
+    histatsId: "3998156",
+    histatsIDGlobal: "",
     googleAnalyticsId: "G-Q7YYG6BQ16",
     adsenseId: "ca-pub-6730641570548989",
     adsenseEnabled: false
