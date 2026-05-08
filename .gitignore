@@ -1,0 +1,15 @@
+node_modules/
+.env
+.env.*
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local archives/backups
+*.zip
+
+# Local scratch/debug files
+scratch/
+project_agc_apalah/
