@@ -1,0 +1,12 @@
+image: node:20
+
+pages:
+  stage: deploy
+  script:
+    - node scripts/export-gitlab-pages.mjs
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
