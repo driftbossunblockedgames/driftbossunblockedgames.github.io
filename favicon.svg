@@ -1,0 +1,31 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#b7ff2d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="innerGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#b7ff2d;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#b7ff2d;stop-opacity:0.1" />
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Outer Glow Ring -->
+  <circle cx="256" cy="256" r="230" fill="none" stroke="url(#mainGradient)" stroke-width="12" opacity="0.3" filter="url(#softGlow)" />
+  
+  <!-- Main Circle Background -->
+  <circle cx="256" cy="256" r="210" fill="#0f172a" stroke="url(#mainGradient)" stroke-width="4" />
+  
+  <!-- Stylized Gamepad / Brand Icon -->
+  <g transform="translate(146, 146) scale(1.4)" filter="url(#softGlow)">
+    <!-- Gamepad Body -->
+    <path d="M120 20C64.8 20 20 64.8 20 120s44.8 100 100 100 100-44.8 100-100S175.2 20 120 20zm50 115c-8.3 0-15-6.7-15-15s6.7-15 15-15 15 6.7 15 15-6.7 15-15 15zm-30-30c-8.3 0-15-6.7-15-15s6.7-15 15-15 15 6.7 15 15-6.7 15-15 15zm0 60c-8.3 0-15-6.7-15-15s6.7-15 15-15 15 6.7 15 15-6.7 15-15 15zm30-30c-8.3 0-15-6.7-15-15s6.7-15 15-15 15 6.7 15 15-6.7 15-15 15zM70 135H55v-15h15v-15h15v15h15v15H85v15H70v-15z" fill="url(#mainGradient)" />
+  </g>
+  
+  <!-- Decorative Accent -->
+  <path d="M256 46a210 210 0 0 1 210 210" fill="none" stroke="#b7ff2d" stroke-width="8" stroke-linecap="round" opacity="0.5" />
+</svg>
