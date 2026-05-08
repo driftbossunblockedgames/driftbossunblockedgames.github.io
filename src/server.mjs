@@ -261,7 +261,14 @@ function gameThumb(g) {
 }
 
 function breadcrumbs(items) {
-  return `<nav class="crumbs">${items.map((it, i) => i === items.length - 1 ? `<span>${esc(it.name)}</span>` : `<a href="${esc(it.path)}">${esc(it.name)}</a>`).join("<span>/</span>")}</nav>`;
+  const ctx = requestContext.getStore() || {};
+  const homeLabel = String(process.env.PUBLIC_SITE_HOST || ctx.host || "")
+    .replace(/^https?:\/\//i, "")
+    .replace(/^www\./i, "")
+    .replace(/\/+$/, "")
+    .trim();
+  const itemLabel = (item = {}) => item?.name === "Home" && homeLabel ? homeLabel : item?.name;
+  return `<nav class="crumbs">${items.map((it, i) => i === items.length - 1 ? `<span>${esc(itemLabel(it))}</span>` : `<a href="${esc(it.path)}">${esc(itemLabel(it))}</a>`).join("<span>/</span>")}</nav>`;
 }
 
 function firstHeader(value = "") {

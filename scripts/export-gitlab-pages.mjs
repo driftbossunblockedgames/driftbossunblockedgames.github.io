@@ -7,6 +7,7 @@ const outDir = path.join(root, "public");
 const snapshotDir = path.join(root, ".pages-public");
 const port = Number(process.env.PORT || 4177);
 const base = `http://127.0.0.1:${port}`;
+const publicSiteHost = process.env.PUBLIC_SITE_HOST || "unblockedgamegplus2.gitlab.io";
 
 const slugify = (value = "") => String(value || "")
   .toLowerCase()
@@ -84,7 +85,8 @@ const server = spawn(process.execPath, ["src/server.mjs"], {
     ...process.env,
     HOST: "127.0.0.1",
     PORT: String(port),
-    BASE_URL: process.env.BASE_URL || base
+    BASE_URL: process.env.BASE_URL || base,
+    PUBLIC_SITE_HOST: publicSiteHost
   },
   stdio: "inherit"
 });
