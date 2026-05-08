@@ -2476,3 +2476,84 @@ td strong {
 .nav-search button:hover { opacity: 1; transform: scale(1.1); }
 @media (max-width: 900px) { .nav-search { display: none; } }
 
+
+/* === Drift Boss Featured Section === */
+.drift-boss-featured {
+  margin-top: 32px;
+  padding: 24px 16px;
+  background: linear-gradient(135deg, var(--panel) 0%, color-mix(in srgb, var(--lime) 8%, var(--panel)) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 40px var(--glow-soft);
+}
+
+.featured-game-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.featured-game-header h2 {
+  font-size: 24px;
+  margin: 0 0 8px;
+  color: var(--lime);
+}
+
+.featured-game-header p {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.drift-boss-container {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 24px;
+  align-items: center;
+}
+
+.drift-boss-player {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--line);
+}
+
+.drift-boss-info h3 {
+  font-size: 20px;
+  margin: 0 0 12px;
+  color: var(--heading);
+}
+
+.drift-boss-info p {
+  margin: 0.75rem 0;
+  line-height: 1.6;
+}
+
+.cta-btn {
+  transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--glow);
+}
+
+@media (max-width: 900px) {
+  .drift-boss-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .drift-boss-player {
+    order: -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .drift-boss-featured {
+    padding: 16px 12px;
+  }
+  
+  .featured-game-header h2 {
+    font-size: 20px;
+  }
+}

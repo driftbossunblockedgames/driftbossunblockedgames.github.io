@@ -191,6 +191,37 @@ export function createHomePage({
     ];
     const homepageFaqs = gameOnly ? gameOnlyFaqs : effectiveHomeFaqs;
 
+    // Featured Drift Boss Game
+    const driftBossGame = games.find(g => g.slug === "drift-boss");
+    const driftBossSection = gameEnabled && driftBossGame ? `
+<section class="section drift-boss-featured">
+  <div class="featured-game-header">
+    <h2>🏎️ Play Drift Boss Unblocked</h2>
+    <p>Master the art of drifting and earn points in our featured game</p>
+  </div>
+  <div class="drift-boss-container">
+    <div class="drift-boss-player">
+      <div class="player-wrapper" style="position:relative;width:100%;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:15px;">
+        <iframe src="/play/${esc(driftBossGame.slug)}" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:15px;" title="${esc(driftBossGame.title)}" allowfullscreen="true" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
+      </div>
+    </div>
+    <div class="drift-boss-info">
+      <h3>${esc(driftBossGame.title)}</h3>
+      <p style="color:var(--muted);margin:1rem 0;font-size:0.95rem;">Perform perfect drifts to earn points and master the wheel. Play instantly, no downloads needed.</p>
+      <a href="/play/${esc(driftBossGame.slug)}" class="cta-btn" style="display:inline-block;padding:0.75rem 1.5rem;background:var(--lime);color:var(--heading);border-radius:8px;text-decoration:none;font-weight:600;margin-top:1rem;">Play Full Game</a>
+      <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--line);">
+        <p style="font-size:0.9rem;color:var(--muted);"><strong>✨ Why Drift Boss?</strong><br>
+        ✓ Instant browser play<br>
+        ✓ Works on Chromebook & mobile<br>
+        ✓ Completely free<br>
+        ✓ No installation needed
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+` : "";
+
     const body = `${breadcrumbs([{ name: "Home", path: "/" }])}
 ${gameEnabled ? nowPlayingStrip() : articleStrip({ label: "New Articles" })}
 <section class="hero">
@@ -212,6 +243,8 @@ ${gameEnabled ? nowPlayingStrip() : articleStrip({ label: "New Articles" })}
         return `<a class="hero-card" href="${esc(featuredArticle.path)}"><img src="${esc(finalHeroImage)}" alt="${esc(featuredArticleTitle)}" fetchpriority="high" loading="eager"><div class="meta"><span class="badge">Featured Article</span><h2 style="margin:0;font-size:18px">${esc(featuredArticleTitle)}</h2></div></a>`;
       })()}
 </section>
+
+${driftBossSection}
 
 ${gameEnabled ? `
 <section class="section"><h2>Featured Games</h2><div class="feature-grid">${featured.map(g => featureGameCard(g, true)).join("")}</div></section>
