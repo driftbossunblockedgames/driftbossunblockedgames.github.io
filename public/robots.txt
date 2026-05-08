@@ -16,4 +16,4 @@ Allow: /search
 Allow: /search/*
 Disallow: /master-sitemap
 
-Sitemap: https://freeunblockedgamesgp.github.io/sitemap.xml
+Sitemap: https://unblockedgamegplus2.gitlab.io/sitemap.xml
