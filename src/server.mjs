@@ -1124,6 +1124,11 @@ const server = http.createServer(async (req, res) => {
 
     if (p === "/robots.txt") {
       const base = host ? `${proto}://${host}` : BASE_URL;
+      const sitemapLines = config?.features?.gameOnly === true
+        ? `Sitemap: ${base}/sitemap.xml`
+        : `Sitemap: ${base}/sitemap.xml
+Sitemap: ${base}/sitemap-news.xml
+Sitemap: ${base}/rss.xml`;
       const content = `User-agent: Googlebot
 User-agent: Bingbot
 User-agent: Yandex
@@ -1142,9 +1147,7 @@ Allow: /search
 Allow: /search/*
 Disallow: /master-sitemap
 
-Sitemap: ${base}/sitemap.xml
-Sitemap: ${base}/sitemap-news.xml
-Sitemap: ${base}/rss.xml`;
+${sitemapLines}`;
       return sendPayload(req, res, 200, { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=86400" }, content);
     }
     if (p.startsWith("/google") && p.endsWith(".html")) {
@@ -1153,11 +1156,10 @@ Sitemap: ${base}/rss.xml`;
     }
     if (p === "/sitemap.xml") {
       const xml = cachedValue(`xml:${proto}:${host}:${p}`, XML_CACHE_TTL, () => {
-        const links = ["/sitemap/articles.xml", "/sitemap-news.xml", "/sitemap/static.xml"];
-        if (gameEnabled) {
-          links.push("/sitemap/guides.xml");
-          links.push("/sitemap/games.xml");
-        }
+        const links = config?.features?.gameOnly === true
+          ? ["/sitemap/games.xml", "/sitemap/guides.xml"]
+          : ["/sitemap/articles.xml", "/sitemap-news.xml", "/sitemap/static.xml"];
+        if (gameEnabled && config?.features?.gameOnly !== true) links.push("/sitemap/guides.xml", "/sitemap/games.xml");
         return sitemapIndexXml(links, host, proto);
       });
       return sendPayload(req, res, 200, { "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=1800" }, xml);

@@ -8,6 +8,7 @@ const snapshotDir = path.join(root, ".pages-public");
 const port = Number(process.env.PORT || 4177);
 const base = `http://127.0.0.1:${port}`;
 const publicSiteHost = process.env.PUBLIC_SITE_HOST || "unblockedgamegplus2.gitlab.io";
+const publicBaseUrl = process.env.PUBLIC_BASE_URL || `https://${publicSiteHost}`;
 
 const slugify = (value = "") => String(value || "")
   .toLowerCase()
@@ -23,15 +24,13 @@ const htmlRoutes = [
   ["/categories", "categories/index.html"],
   ["/related/game", "related/game/index.html"],
   ...categorySlugs.map((slug) => [`/category/${slug}`, `category/${slug}/index.html`]),
-  ...games.map((game) => [`/play/${game.slug}`, `play/${game.slug}/index.html`])
+  ...games.map((game) => [`/play/${game.slug}`, `play/${game.slug}/index.html`]),
+  ...games.map((game) => [`/guide/${game.slug}`, `guide/${game.slug}/index.html`])
 ];
 
 const staticRoutes = [
   ["/robots.txt", "robots.txt"],
-  ["/rss.xml", "rss.xml"],
   ["/sitemap.xml", "sitemap.xml"],
-  ["/sitemap-news.xml", "sitemap-news.xml"],
-  ["/sitemap/static.xml", "sitemap/static.xml"],
   ["/sitemap/games.xml", "sitemap/games.xml"],
   ["/sitemap/guides.xml", "sitemap/guides.xml"],
   ...categorySlugs.map((slug) => [`/sitemap/games/${slug}.xml`, `sitemap/games/${slug}.xml`])
@@ -43,7 +42,12 @@ async function waitForServer(timeoutMs = 30000) {
   const startedAt = Date.now();
   while (Date.now() - startedAt < timeoutMs) {
     try {
-      const response = await fetch(`${base}/`);
+      const response = await fetch(`${base}/`, {
+        headers: {
+          "x-forwarded-host": publicSiteHost,
+          "x-forwarded-proto": "https"
+        }
+      });
       if (response.ok) return;
     } catch {}
     await new Promise((resolve) => setTimeout(resolve, 500));
@@ -52,7 +56,12 @@ async function waitForServer(timeoutMs = 30000) {
 }
 
 async function writeRoute(route, fileName) {
-  const response = await fetch(`${base}${route}`);
+  const response = await fetch(`${base}${route}`, {
+    headers: {
+      "x-forwarded-host": publicSiteHost,
+      "x-forwarded-proto": "https"
+    }
+  });
   if (!response.ok) {
     console.warn(`Skipping ${route}: ${response.status}`);
     return;
@@ -85,7 +94,7 @@ const server = spawn(process.execPath, ["src/server.mjs"], {
     ...process.env,
     HOST: "127.0.0.1",
     PORT: String(port),
-    BASE_URL: process.env.BASE_URL || base,
+    BASE_URL: publicBaseUrl,
     PUBLIC_SITE_HOST: publicSiteHost
   },
   stdio: "inherit"

@@ -97,7 +97,7 @@ export const config = {
 
   // verification.googleConsole: kode verifikasi Google Search Console.
   verification: {
-    googleConsole: "" // Isi dengan kode verifikasi google console jika ada
+    googleConsole: "bMZjKP2UtjKvqO0nwQgVNoFDmuRNOhfF-nkmlMUWaBk" // Isi dengan kode verifikasi google console jika ada
   },
 
   // PENGATURAN THEME DETAIL
